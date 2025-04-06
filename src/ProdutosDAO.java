@@ -70,8 +70,6 @@ public class ProdutosDAO {
                 prod.setStatus(resultset.getString("status"));
                 
                 listagem.add(prod);
-                
-                System.out.println(resultset.getString("nome"));
                   
             }
             prep.close();
