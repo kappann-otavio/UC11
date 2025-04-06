@@ -70,8 +70,6 @@ public class ProdutosDAO {
                 prod.setStatus(resultset.getString("status"));
                 
                 listagem.add(prod);
-                
-                System.out.println(resultset.getString("nome"));
                   
             }
             prep.close();
@@ -85,8 +83,57 @@ public class ProdutosDAO {
         return listagem;
     }
     
-    
-    
+    public void venderProduto(int id){
+                     
+        try {
+            String sql = "UPDATE produtos SET status = ? WHERE ID = ?";
+            conn = new conectaDAO().connectDB();
+            prep = conn.prepareStatement(sql);
+            
+            prep.setString(1, "Vendido");
+            prep.setInt(2, id);
+            
+            prep.executeUpdate();
+            prep.close();
+            conn.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao vender o produto!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         
+        
+    }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        
+        try {
+            String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+            conn = new conectaDAO().connectDB();
+            prep = conn.prepareStatement(sql);
+            resultset = prep.executeQuery();
+            
+             
+            
+            while (resultset.next()){
+               
+                ProdutosDTO prod = new ProdutosDTO();
+                
+                prod.setId(resultset.getInt("id"));
+                prod.setNome(resultset.getString("nome"));
+                prod.setValor(resultset.getInt("valor"));
+                prod.setStatus(resultset.getString("status"));
+                
+                listagem.add(prod);
+                  
+            }
+            prep.close();
+                resultset.close();
+                conn.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listagem;
+    }
 }
 
