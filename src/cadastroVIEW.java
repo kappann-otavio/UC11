@@ -1,8 +1,8 @@
-public class cadastroVIEW extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroVIEW
-     */
+import javax.swing.JOptionPane;
+
+public class cadastroVIEW extends javax.swing.JFrame {
+    
     public cadastroVIEW() {
         initComponents();
     }
@@ -125,6 +125,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
@@ -133,6 +134,9 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
+       
+    try{
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
@@ -143,6 +147,13 @@ public class cadastroVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+        
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+    }
+    catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Verifique se não há nenhum campo vazio ou se o valor está inteiro!", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
